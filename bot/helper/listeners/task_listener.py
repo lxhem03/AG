@@ -99,19 +99,19 @@ class TaskListener(TaskConfig):
         if self.bot_pm and self.is_super_chat:
             self.pm_msg = await send_message(
                 self.user_id,
-                f"""➲ <b><u>Task Started :</u></b>
+                f"""<blockquote>➲ <b><u>Task Started :</u></b>
 ┃
-┖ <b>Link:</b> <a href='{self.source_url}'>Click Here</a>
+┖ <b>Link:</b> <a href='{self.source_url}'>Click Here</a></blockquote>
 """,
             )
         if Config.LINKS_LOG_ID:
             await send_message(
                 Config.LINKS_LOG_ID,
-                f"""➲  <b><u>{mode_name} Started:</u></b>
+                f"""<blockquote>➲  <b><u>{mode_name} Started:</u></b>
  ┃
  ┠ <b>User :</b> {self.tag} ( #ID{self.user_id} )
  ┠ <b>Message Link :</b> <a href='{self.message.link}'>Click Here</a>
- ┗ <b>Link:</b> <a href='{self.source_url}'>Click Here</a>
+ ┗ <b>Link:</b> <a href='{self.source_url}'>Click Here</a></blockquote>
  """,
             )
         if (
@@ -406,7 +406,7 @@ class TaskListener(TaskConfig):
         ):
             await database.rm_complete_task(self.message.link)
         msg = (
-            f"<b><i>{escape(self.name)}</i></b>\n│"
+            f"<blockquote><a href='https://t.me/Animes_Guy'>𝑃𝑜𝑤𝑒𝑟𝑒𝑑 𝐵𝑦 𝐴𝑛𝑖𝑚𝑒𝑠 𝐺𝑢𝑦!!</a></blockquote>\n\n<b><i>{escape(self.name)}</i></b>\n│"
             f"\n┟ <b>Task Size</b> → {get_readable_file_size(self.size)}"
             f"\n┠ <b>Time Taken</b> → {get_readable_time(time() - self.message.date.timestamp())}"
             f"\n┠ <b>In Mode</b> → {self.mode[0]}"
@@ -431,7 +431,7 @@ class TaskListener(TaskConfig):
                     f"{self.tag}\nYour video has been uploaded to YouTube successfully!"
                 )
 
-            msg += f"\n\n<b>Task By: </b>{self.tag}"
+            msg += f"\n\n┠ <b>Task By: </b>{self.tag}"
 
             button = buttons.build_menu(1) if link else None
 

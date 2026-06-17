@@ -104,7 +104,7 @@ async def get_stats(event, key="home"):
         msg = f"""⌬ <b><i>BOT STATISTICS :</i></b>
 ┖ <b>Bot Uptime :</b> {get_readable_time(time() - bot_start_time)}
 
-┎ <b><i>INSTANCE RAM ( BOT ) :</i></b>
+<blockquote>┎ <b><i>INSTANCE RAM ( BOT ) :</i></b>
 ┃ {get_progress_bar_string(bot_ram_pct)} {bot_ram_pct}%
 ┖ <b>U :</b> {get_readable_file_size(bot_ram_used)} | <b>F :</b> {get_readable_file_size(bot_ram_free)} | <b>T :</b> {get_readable_file_size(bot_ram_total)}
 
@@ -125,7 +125,7 @@ async def get_stats(event, key="home"):
 ┃ {get_progress_bar_string(disk)} {disk}%
 ┃ <b>Total Disk Read :</b> {f"{get_readable_file_size(disk_io.read_bytes)} ({get_readable_time(disk_io.read_time / 1000)})" if disk_io else "Access Denied"}
 ┃ <b>Total Disk Write :</b> {f"{get_readable_file_size(disk_io.write_bytes)} ({get_readable_time(disk_io.write_time / 1000)})" if disk_io else "Access Denied"}
-┖ <b>U :</b> {get_readable_file_size(used)} | <b>F :</b> {get_readable_file_size(free)} | <b>T :</b> {get_readable_file_size(total)}
+┖ <b>U :</b> {get_readable_file_size(used)} | <b>F :</b> {get_readable_file_size(free)} | <b>T :</b> {get_readable_file_size(total)}</blockquote>
 """
     elif key == "stsys":
         cpu_usage = cpu_percent(interval=0.5)
@@ -133,7 +133,7 @@ async def get_stats(event, key="home"):
         p_cores = cpu_count(logical=False)
         v_cores = (sys_cpu or 0) - (p_cores or 0)
         msg = f"""⌬ <b><i>SYSTEM OS :</i></b>
-╟ <b>OS Uptime :</b> {get_readable_time(time() - boot_time())}
+<blockquote>╟ <b>OS Uptime :</b> {get_readable_time(time() - boot_time())}
 ┠ <b>OS Version :</b> {version()}
 ┖ <b>OS Arch :</b> {platform()}
 
@@ -150,7 +150,7 @@ async def get_stats(event, key="home"):
 ┠ <b>System Avg Load :</b> {"%, ".join(str(round((x / (cpu_count() or 1) * 100), 2)) for x in getloadavg())}%, (1m, 5m, 15m)
 ┠ <b>P-Core(s) :</b> {p_cores} | <b>V-Core(s) :</b> {v_cores}
 ┠ <b>Total Core(s) :</b> {sys_cpu}
-┖ <b>Usable CPU(s) :</b> {len(Process().cpu_affinity())}
+┖ <b>Usable CPU(s) :</b> {len(Process().cpu_affinity())}</blockquote>
 """
     elif key == "strepo":
         last_commit, changelog = "No Data", "N/A"
@@ -172,18 +172,18 @@ async def get_stats(event, key="home"):
                 True,
             )
         )[0]
-        msg = f"""⌬ <b><i>Repo Statistics :</i></b>
+        msg = f"""<blockquote>⌬ <b><i>Repo Statistics :</i></b>
 │
 ┟ <b>Bot Updated :</b> {last_commit}
 ┠ <b>Current Version :</b> {get_version()}
 ┠ <b>Latest Version :</b> {official_v}
 ┖ <b>Last ChangeLog :</b> {changelog}
 
-⌬ <b>REMARKS :</b> <code>{compare_versions(get_version(), official_v)}</code>
+⌬ <b>REMARKS :</b> <code>{compare_versions(get_version(), official_v)}</code></blockquote>
     """
     elif key == "stpkgs":
         ver = bot_cache.get("eng_versions", {})
-        msg = f"""⌬ <b><i>Packages Statistics :</i></b>
+        msg = f"""<blockquote>⌬ <b><i>Packages Statistics :</i></b>
 │
 ┟ <b>python:</b> v{ver.get("python", "N/A")}
 ┠ <b>aria2:</b> v{ver.get("aria2", "N/A")}
@@ -196,10 +196,10 @@ async def get_stats(event, key="home"):
 ┠ <b>Aiohttp:</b> v{ver.get("aiohttp", "N/A")}
 ┠ <b>PyroTgFork:</b> v{ver.get("pyrotgfork", "N/A")}
 ┠ <b>Google API:</b> v{ver.get("gapi", "N/A")}
-┖ <b>MegaSDK:</b> v{ver.get("mega", "N/A")}
+┖ <b>MegaSDK:</b> v{ver.get("mega", "N/A")}</blockquote>
 """
     elif key == "tlimits":
-        msg = f"""⌬ <b><i>Bot Task Limits :</i></b>
+        msg = f"""<blockquote>⌬ <b><i>Bot Task Limits :</i></b>
 │
 ┟ <b>Direct Limit :</b> {Config.DIRECT_LIMIT or "∞"} GB
 ┠ <b>Torrent Limit :</b> {Config.TORRENT_LIMIT or "∞"} GB
@@ -219,7 +219,7 @@ async def get_stats(event, key="home"):
 ┟ <b>Token Validity :</b> {get_readable_time(Config.VERIFY_TIMEOUT) if Config.VERIFY_TIMEOUT else "Disabled"}
 ┠ <b>User Time Limit :</b> {Config.USER_TIME_INTERVAL or "0"}s / task
 ┠ <b>User Max Tasks :</b> {Config.USER_MAX_TASKS or "∞"}
-┖ <b>Bot Max Tasks :</b> {Config.BOT_MAX_TASKS or "∞"}
+┖ <b>Bot Max Tasks :</b> {Config.BOT_MAX_TASKS or "∞"}</blockquote>
     """
 
     elif key == "systasks":
